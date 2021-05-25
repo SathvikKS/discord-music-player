@@ -613,6 +613,28 @@ class Player extends EventEmitter {
      * @param {Partial<Util.ProgressOptions>} options Progressbar options.
      * @returns {String}
      */
+    getDurationCurrent(message, options) {
+        let queue = this.queues.get(message.guild.id);
+        if (!queue)
+        {
+            this.emit('error', 'QueueIsNull', message);
+            return null;
+        }
+
+        let timePassed = queue.dispatcher.streamTime + queue.songs[0].seekTime;
+        return timePassed;
+    }
+    getDurationEnd(message, options) {
+        let queue = this.queues.get(message.guild.id);
+        if (!queue)
+        {
+            this.emit('error', 'QueueIsNull', message);
+            return null;
+        }
+
+        let timeEnd = Util.TimeToMilliseconds(queue.songs[0].duration);
+        return timeEnd;
+    }
     createProgressBar(message, options) {
         // Gets guild queue
         let queue = this.queues.get(message.guild.id);
