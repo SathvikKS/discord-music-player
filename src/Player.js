@@ -613,11 +613,16 @@ class Player extends EventEmitter {
      * @param {Partial<Util.ProgressOptions>} options Progressbar options.
      * @returns {String}
      */
+    isQueueEmpty(message) {
+        let queue = this.queues.get(message.guild.id);
+        if(queue) return false;
+        else return true;
+    }
     getDurationCurrent(message, options) {
         let queue = this.queues.get(message.guild.id);
         if (!queue)
         {
-            this.emit('error', 'QueueIsNull', message);
+            //this.emit('error', 'QueueIsNull', message);
             return null;
         }
 
@@ -628,7 +633,7 @@ class Player extends EventEmitter {
         let queue = this.queues.get(message.guild.id);
         if (!queue)
         {
-            this.emit('error', 'QueueIsNull', message);
+            //this.emit('error', 'QueueIsNull', message);
             return null;
         }
 
